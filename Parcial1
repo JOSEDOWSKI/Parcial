@@ -1,0 +1,172 @@
+#include <iostream>
+#include <string>
+
+#define STRING(num) #num
+
+using namespace std;
+
+int v,p,filas,columnas,numeros[50][50],posicion,inicial,x;
+
+void Mapa(int filas,int columnas) {
+  for(int i=0;i<filas;i++){
+		for(int j=0;j<columnas;j++){
+      if (i==posicion&&j==inicial){
+        numeros[i][j]= 1;
+      }else{
+        numeros[i][j]= 0;
+      }
+}}}
+int direccion;
+char d;
+char direccion_inicial(char d) {
+  
+  if(d =='N'||d =='n'){
+    direccion = 1;
+    return direccion;
+  }
+  if(d =='E'||d =='e'){
+    direccion = 2;
+    return direccion;
+    }
+  if(d =='S'||d =='s'){
+    direccion = 3;
+    return direccion;
+    }
+  if(d =='O'||d =='o'){
+    direccion = 0;
+    return direccion;
+    }
+    else{
+    cout<<"¿Conoce los puntos cardinales? Predeterminado a Este: ";
+    direccion=1;
+    return direccion;
+  }
+}
+
+
+
+int movimiento(string movimientos1, int posicion0, int inicial0, int x,int direccion0){
+  
+    if(x==movimientos1.size()-1){
+      return numeros[posicion][inicial];
+    }
+    if(direccion==1){
+        switch(movimientos1[x]){
+
+          case 'D':
+					 			
+            movimiento(movimientos1, posicion, inicial, x+1, 2);
+          
+				  case 'I':
+					
+            movimiento(movimientos1, posicion, inicial, x+1, 0);
+				  case'A':
+            posicion = posicion - 1;
+            
+            movimiento(movimientos1, posicion, inicial, x+1, 1);
+            
+        }
+    }
+    if(direccion==2){
+        switch(movimientos1[x]){
+          case 'D':
+					  		
+            movimiento(movimientos1, posicion, inicial, x+1, 3);
+          
+				  case 'I':
+					 
+            movimiento(movimientos1, posicion, inicial, x+1, 1);
+				  case'A':
+            inicial = inicial + 1;
+            
+            movimiento(movimientos1, posicion, inicial, x+1, 2);
+            
+        }
+    }
+    if(direccion==3){
+        switch(movimientos1[x]){
+          case 'D':
+					  			
+            movimiento(movimientos1, posicion, inicial, x+1, 0);
+          
+				  case 'I':
+					  
+            movimiento(movimientos1, posicion, inicial, x+1, 2);
+				  case'A':
+            posicion = posicion + 1;
+            
+            movimiento(movimientos1, posicion, inicial, x+1, 3);
+            
+        }
+    }
+    if(direccion==0){
+        switch(movimientos1[x]){
+          case 'D':
+			
+            movimiento(movimientos1, posicion, inicial, x+1, 1);
+          
+				  case 'I':
+					 
+            movimiento(movimientos1, posicion, inicial, x+1, 3);
+				  case'A':
+            inicial = inicial - 1;
+            
+            movimiento(movimientos1, posicion, inicial, x+1, 0);
+            
+        }
+    }
+  return numeros[posicion][inicial];
+  
+}
+
+
+
+
+  
+bool salio_del_mapa(bool g){
+  if(posicion < 0 || posicion >filas||inicial < 0 || inicial >columnas){
+    cout<<"ROBOT PERDIDO"<<"\n";
+    g=true;
+    cout<<g;
+  }else{
+    cout<<"la posicion del robot es: "<<" i= "<<posicion<<" j= "<<inicial<<"\n";
+    g=false;
+    cout<<g;
+  }
+  return g;
+}
+
+int main() {
+  
+  
+  bool g;
+  cout<<"Tamaño del mapa: indique el numero de filas: ";cin>>filas;
+  cout<<"Tamaño del mapa: indique el numero de columnas: ";cin>>columnas;
+  cout<<"Posicion inicial: i: ";cin>>posicion;
+  cout<<"Posicion inicial: j: ";cin>>inicial;
+  cout<<"Direccion inicial(N,S,E,O): ";cin>>d;
+  int posicion0 = posicion+0;
+  int inicial0 = inicial+0;
+  Mapa(filas, columnas);
+  for(int i=0;i<filas;i++){
+		for(int j=0;j<columnas;j++){
+			cout<<numeros[i][j];
+		}
+		cout<<"\n";
+	}
+  direccion_inicial(d);
+
+  string movimientos1(STRING(movimientos1));
+  cout<<"Indique los movimientos: ";
+  cin>>movimientos1;
+  movimiento(movimientos1,posicion,inicial,0,direccion);
+  for(int i=0;i<filas;i++){
+		for(int j=0;j<columnas;j++){
+			cout<<numeros[posicion][inicial];
+		}
+		cout<<"\n";
+	}
+  cout<<"se salio del mapa? 1 = V y 0 = F: ";
+  salio_del_mapa(g);
+  
+}
