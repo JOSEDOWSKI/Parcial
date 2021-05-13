@@ -7,7 +7,7 @@ using namespace std;
 
 int v,p,filas,columnas,numeros[50][50],posicion,inicial,x;
 
-void Mapa(int filas,int columnas) {
+void Mapa(int filas,int columnas) {//creamos na matriz que simula el tamaño del mapa, con una posicion inicial
   for(int i=0;i<filas;i++){
 		for(int j=0;j<columnas;j++){
       if (i==posicion&&j==inicial){
@@ -18,7 +18,7 @@ void Mapa(int filas,int columnas) {
 }}}
 int direccion;
 char d;
-char direccion_inicial(char d) {
+char direccion_inicial(char d) {//creamos una funcion qeu devuelve un valor segun corresponda N,S,E,O con un numero asignado a cada punto cardinal
   
   if(d =='N'||d =='n'){
     direccion = 1;
@@ -45,7 +45,7 @@ char direccion_inicial(char d) {
 
 
 
-int movimiento(string movimientos1, int posicion0, int inicial0, int x,int direccion0){
+int movimiento(string movimientos1, int posicion0, int inicial0, int x,int direccion0){//realizamos el movimiento preguntando primero a que posicion esta mirando y luego cambiando los valores de i y j de los valores iniciales en cada recursion
   
     if(x==movimientos1.size()-1){
       return numeros[posicion][inicial];
@@ -123,7 +123,7 @@ int movimiento(string movimientos1, int posicion0, int inicial0, int x,int direc
 
 
   
-bool salio_del_mapa(bool g){
+bool salio_del_mapa(bool g){//funcion para verificar si se salio del mapa o no
   if(posicion < 0 || posicion >filas||inicial < 0 || inicial >columnas){
     cout<<"ROBOT PERDIDO"<<"\n";
     g=true;
@@ -136,7 +136,7 @@ bool salio_del_mapa(bool g){
   return g;
 }
 
-int main() {
+int main() { 
   
   
   bool g;
